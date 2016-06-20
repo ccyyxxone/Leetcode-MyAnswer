@@ -1,0 +1,20 @@
+Python code:
+class Solution(object):
+    record1 = [9, 72]
+    record2 = [1, 9]
+    for i in range(2,9):
+        num = 1
+        temp = 9
+        for j in range(i+1):
+            num *= temp
+            temp -= 1
+        record1.append(num)
+        record2.append(record1[i-1]*i)
+    def countNumbersWithUniqueDigits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n==0:
+            return 1
+        return sum(self.record1[:n]) + sum(self.record2[:n])

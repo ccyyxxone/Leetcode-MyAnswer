@@ -1,0 +1,40 @@
+359	Logger Rate Limiter
+水题
+要求实现一个Logger类
+这个类会收到如下一系列的日志消息和时间戳，如果同样消息在10秒内被打印过就返回False，否则返回True
+Logger logger = new Logger();
+
+// logging string "foo" at timestamp 1
+logger.shouldPrintMessage(1, "foo"); returns true; 
+
+// logging string "bar" at timestamp 2
+logger.shouldPrintMessage(2,"bar"); returns true;
+
+// logging string "foo" at timestamp 3
+logger.shouldPrintMessage(3,"foo"); returns false;
+
+// logging string "bar" at timestamp 8
+logger.shouldPrintMessage(8,"bar"); returns false;
+
+// logging string "foo" at timestamp 10
+logger.shouldPrintMessage(10,"foo"); returns false;
+
+// logging string "foo" at timestamp 11
+logger.shouldPrintMessage(11,"foo"); returns true;
+一个哈希表解决。
+
+Python 代码：
+class Logger(object):
+    def __init__(self):
+        self.record = {}
+
+    def shouldPrintMessage(self, timestamp, message):
+        if message not in self.record:
+            self.record[message] = timestamp
+            return True
+        else:
+            if timestamp - self.record[message] >= 10:
+                self.record[message] = timestamp
+                return True
+            else:
+                return False
